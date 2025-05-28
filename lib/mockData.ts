@@ -1,10 +1,10 @@
-// lib/mockData.ts
+/* // lib/mockData.ts
 
 import { JobListing } from "../types/job";
 
 
 export const jobData: JobListing[] = [
- {
+  {
     id: '1',
     title: 'Frontend Developer',
     department: 'Engineering',
@@ -284,5 +284,6 @@ export const jobData: JobListing[] = [
     benefits: ['Incentives', 'Remote forever']
   }
 
-  
+
 ];
+ */

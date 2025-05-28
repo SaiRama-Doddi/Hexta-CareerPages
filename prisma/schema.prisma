@@ -23,3 +23,18 @@ model JobApplication {
   coverLetter  String
   createdAt    DateTime @default(now())
 }
+model Job {
+  id              String   @id
+  title           String
+  department      String
+  location        String
+  type            String
+  experience      String
+  salary          String
+  postedDate      DateTime
+  description     String
+  requirements    String[] // uses PostgreSQL array
+  responsibilities String[]
+  benefits        String[]
+}
+
