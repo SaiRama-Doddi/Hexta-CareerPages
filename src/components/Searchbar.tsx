@@ -43,7 +43,7 @@ export default function CareerSearch({ onFiltersChange }: CareerSearchProps) {
   };
 
   return (
-    <div className="w-full px-4 py-6 md:py-10 flex flex-col items-center mt-30">
+    <div className="w-full px-4 py-6 md:py-10 flex flex-col items-center mt-10">
       <div className="w-full max-w-4xl">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-4xl font-bold relative after:content-[''] after:block after:w-full after:h-1 after:bg-[#217597] after:mt-1">

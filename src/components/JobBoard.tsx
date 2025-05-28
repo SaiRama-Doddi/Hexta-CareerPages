@@ -55,7 +55,7 @@ const JobBoard = () => {
   };
 
   return (
-    <div className="mt-35">
+    <div className="mt-2">
       <CareerSearch onFiltersChange={handleFiltersChange} />
       <VectorImage />
       <JobCard jobs={filteredJobs} loading={loading} />
