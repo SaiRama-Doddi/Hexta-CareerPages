@@ -1,31 +1,43 @@
-// src/app/api/applications/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'
+import { prisma } from '../../../../lib/prisma'
 
-export async function POST(req: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const formData = await req.formData();
+    const body = await request.json()
+    const { jobId, name, email, phone, resume, coverLetter } = body
 
-    const jobId = formData.get('jobId');
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const phone = formData.get('phone');
-    const resume = formData.get('resume'); // File
-    const coverLetter = formData.get('coverLetter');
+    if (!jobId || !name || !email || !phone || !resume || !coverLetter) {
+      return NextResponse.json({ error: 'All fields are required' }, { status: 400 })
+    }
 
-    return NextResponse.json({
-      message: 'Form submitted successfully!',
-      jobId,
-      name,
-      email,
-      phone,
-      resume: resume instanceof File ? resume.name : null,
-      coverLetter
-    });
-  } catch (error) {
-    return NextResponse.json({ error: 'POST Failed' }, { status: 500 });
+    const newApplication = await prisma.jobApplication.create({
+      data: {
+        jobId,
+        name,
+        email,
+        phone,
+        resume,
+        coverLetter,
+      },
+    })
+
+    return NextResponse.json(newApplication, { status: 201 })
+  } catch (error: any) {
+    console.error('POST ERROR:', error)
+    return NextResponse.json({ error: error.message || 'Server Error' }, { status: 500 })
   }
 }
 
 export async function GET() {
-  return NextResponse.json({ message: 'GET is working' });
+  try {
+    const applications = await prisma.jobApplication.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
+    return NextResponse.json(applications)
+  } catch (error: any) {
+    console.error('GET ERROR:', error)
+    return NextResponse.json({ error: error.message || 'Server Error' }, { status: 500 })
+  }
 }
